@@ -1,9 +1,13 @@
 class Spaceship extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, texture, frame, pointValue){
-    super(scene, x, y, texture, frame);
+  constructor(scene, x, y, type, pointValue){
+    super(scene, x, y);
     scene.add.existing(this);
     this.points = pointValue;
-    this.moveSpeed = game.settings.spaceshipSpeed;
+    if (type in game.settings.spaceshipSpeed) this.moveSpeed = game.settings.spaceshipSpeed[type];
+    else {
+      console.error("Spaceship type is invalid. Reverting to default values.");
+      this.moveSpeed = 3;
+    }
   }
 
   update() {

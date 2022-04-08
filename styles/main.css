@@ -1,0 +1,10 @@
+@font-face{
+  font-family: 'VT323', monospace;
+  src: url("/assets/VT323-Regular.ttf");
+}
+
+canvas{
+  display: block;
+  margin: 0 auto;
+  border-radius: 20px;
+}

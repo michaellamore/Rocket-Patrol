@@ -2,6 +2,8 @@ let config = {
   type: Phaser.CANVAS,
   width: 640,
   height: 480,
+  pixelArt: true,
+  zoom: 2,
   scene: [Menu, Play]
 }
 

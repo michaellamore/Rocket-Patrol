@@ -11,10 +11,9 @@ class Menu extends Phaser.Scene {
 
   create() {
     let menuConfig = {
-      fontFamily: 'Courier',
+      fontFamily: 'VT323',
       fontSize: '28px',
-      backgroundColor: '#F3B141',
-      color: '#843605',
+      color: '#FFFFFF',
       align: 'right',
       padding: {
         top: 5,
@@ -25,30 +24,40 @@ class Menu extends Phaser.Scene {
 
     this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
     this.add.text(game.config.width/2, game.config.height/2, 'Use Arrow Keys to move & (F) to Fire', menuConfig).setOrigin(0.5);
-    menuConfig.backgroundColor = "#00FF00";
-    menuConfig.color = '#000';
-    this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press <- for Novice or -> for Expert', menuConfig).setOrigin(0.5);
+    this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press (R) for Novice or (F) for Expert', menuConfig).setOrigin(0.5);
 
     // define keys
+    keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
+    keyR = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.R);
     keyLEFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     keyRIGHT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
   }
 
   update() {
-    if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
+    if (Phaser.Input.Keyboard.JustDown(keyR)) {
       // Easy
       game.settings = {
-        spaceshipSpeed: 3,
+        playerSpeed: 5,
+        spaceshipSpeed: {
+          red: 5,
+          orange: 4,
+          green: 3
+        },
         gameTimer: 60000
       }
       this.sound.play('sfx_select');
       this.scene.start('playScene');
     }
 
-    if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
+    if (Phaser.Input.Keyboard.JustDown(keyF)) {
       // Hard
       game.settings = {
-        spaceshipSpeed: 4,
+        playerSpeed: 3,
+        spaceshipSpeed: {
+          red: 8,
+          orange: 6,
+          green: 5
+        },
         gameTimer: 45000
       }
       this.sound.play('sfx_select');
