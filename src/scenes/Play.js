@@ -11,7 +11,7 @@ class Play extends Phaser.Scene {
     this.load.spritesheet('spaceship3', './assets/spaceship-3.png', {frameWidth: 48, frameHeight: 48, startFrame: 0, endFrame: 1}); 
     this.load.image('galaxy', './assets/galaxy.png');
     this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9}); 
-    this.load.spritesheet('explosionNew', './assets/explosionGreen.png', {frameWidth: 48, frameHeight: 48, startFrame: 0, endFrame: 8}); 
+    this.load.spritesheet('explosionNew', './assets/explosionNew.png', {frameWidth: 48, frameHeight: 48, startFrame: 0, endFrame: 8}); 
   }
 
   create() {
@@ -151,11 +151,12 @@ class Play extends Phaser.Scene {
     ship.alpha = 0;
     // create explosion sprite at ship's position
     let boom = this.add.sprite(ship.x, ship.y, 'explosionNew').setOrigin(0, 0);
-    boom.anims.play('explodeNew');          // play explode animation
-    boom.on('animationcomplete', () => {    // callback after anim completes
-      ship.reset();                         // reset ship position
-      ship.alpha = 1;                       // make ship visible again
-      boom.destroy();                       // remove explosion sprite
+    boom.anims.play('explodeNew'); 
+    ship.reset();          
+    boom.on('animationcomplete', () => {    
+      ship.alpha = 1;                       
+      boom.destroy();
+      ship.resetting = false;            
     });
     // Add score
     this.p1Score += ship.points;

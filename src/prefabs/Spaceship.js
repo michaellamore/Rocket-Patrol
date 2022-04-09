@@ -3,6 +3,7 @@ class Spaceship extends Phaser.GameObjects.Sprite {
     super(scene, x, y);
     scene.add.existing(this);
     this.points = pointValue;
+    this.resetting = false;
     if (type in game.settings.spaceshipSpeed) this.moveSpeed = game.settings.spaceshipSpeed[type];
     else {
       console.error("Spaceship type is invalid. Reverting to default values.");
@@ -12,13 +13,17 @@ class Spaceship extends Phaser.GameObjects.Sprite {
 
   update() {
     // Move spaceships left
-    this.x -= this.moveSpeed;
-    // Wrap the screen
-    if(this.x <= 0 - this.width){
-      this.x = game.config.width;
+    if(!this.resetting){
+      this.x -= this.moveSpeed;
+      // Wrap the screen
+      if(this.x <= 0 - this.width){
+        this.x = game.config.width;
+      }
     }
   }
+  
   reset() {
     this.x = game.config.width;
+    this.resetting = true;
   }
 }
