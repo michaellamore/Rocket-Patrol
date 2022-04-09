@@ -21,7 +21,7 @@ class Play extends Phaser.Scene {
     this.p1Score = 0;
     // Display score
     let scoreConfig = {
-      fontFamily: 'VT323',
+      fontFamily: 'Upheaval',
       fontSize: '28px',
       color: '#FFFFFF',
       align: 'left',
