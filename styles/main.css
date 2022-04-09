@@ -1,6 +1,6 @@
 @font-face{
-  font-family: 'Upheaval';
-  src: url("/assets/upheavtt.ttf");
+  font-family: 'Upheavtt';
+  src: url('/assets/upheavtt.ttf');
 }
 
 canvas{
@@ -13,10 +13,9 @@ canvas{
 body{
   margin: 0;
   padding: 0;
-  font-family: 'Upheaval';
-  background: url("/assets/galaxy.png");
+  font-family: 'Upheavtt';
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/assets/galaxy.png');
   background-repeat: repeat;
-  background-blend-mode: darken;
 }
 
 p{

@@ -16,7 +16,7 @@ class Menu extends Phaser.Scene {
     this.title = this.add.image(0, 0, 'title').setOrigin(0,0);
 
     let menuConfig = {
-      fontFamily: 'Upheaval',
+      fontFamily: 'Upheavtt',
       fontSize: '28px',
       color: '#FFFFFF',
       align: 'right',
