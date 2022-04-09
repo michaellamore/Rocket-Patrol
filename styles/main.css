@@ -14,7 +14,7 @@ body{
   margin: 0;
   padding: 0;
   font-family: 'Upheaval';
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("/assets/galaxy.png");
+  background: url("/assets/galaxy.png");
   background-repeat: repeat;
   background-blend-mode: darken;
 }
