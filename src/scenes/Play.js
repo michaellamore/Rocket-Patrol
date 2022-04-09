@@ -10,8 +10,10 @@ class Play extends Phaser.Scene {
     this.load.spritesheet('spaceship2', './assets/spaceship-2.png', {frameWidth: 48, frameHeight: 32, startFrame: 0, endFrame: 1}); 
     this.load.spritesheet('spaceship3', './assets/spaceship-3.png', {frameWidth: 48, frameHeight: 48, startFrame: 0, endFrame: 1}); 
     this.load.image('galaxy', './assets/galaxy.png');
-    this.load.spritesheet('explosion', './assets/explosion.png', {frameWidth: 64, frameHeight: 32, startFrame: 0, endFrame: 9}); 
     this.load.spritesheet('explosionNew', './assets/explosionNew.png', {frameWidth: 48, frameHeight: 48, startFrame: 0, endFrame: 8}); 
+    this.load.spritesheet('score20', './assets/score20.png', {frameWidth: 96, frameHeight: 72, startFrame: 0, endFrame: 20}); 
+    this.load.spritesheet('score50', './assets/score50.png', {frameWidth: 96, frameHeight: 72, startFrame: 0, endFrame: 20}); 
+    this.load.spritesheet('score100', './assets/score100.png', {frameWidth: 96, frameHeight: 72, startFrame: 0, endFrame: 20}); 
   }
 
   create() {
@@ -34,8 +36,8 @@ class Play extends Phaser.Scene {
 
     // add spaceships (x3)
     this.ship01 = new Spaceship(this, game.config.width + borderUISize*6, borderUISize*4, "red", 100).setOrigin(0, 0);
-    this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, "orange", 30).setOrigin(0,0);
-    this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, "green", 10).setOrigin(0,0);
+    this.ship02 = new Spaceship(this, game.config.width + borderUISize*3, borderUISize*5 + borderPadding*2, "orange", 50).setOrigin(0,0);
+    this.ship03 = new Spaceship(this, game.config.width, borderUISize*6 + borderPadding*4, "green", 20).setOrigin(0,0);
 
     // Define keys
     keyF = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.F);
@@ -55,9 +57,19 @@ class Play extends Phaser.Scene {
 
     // Animations
     this.anims.create({
-      key: 'explode', 
-      frames: this.anims.generateFrameNumbers('explosion', {start: 0, end: 9, first: 0}),
-      frameRate: 30
+      key: 'score20', 
+      frames: this.anims.generateFrameNumbers('score20', {start: 0, end: 20, first: 0}),
+      frameRate: 40
+    });
+    this.anims.create({
+      key: 'score50', 
+      frames: this.anims.generateFrameNumbers('score50', {start: 0, end: 20, first: 0}),
+      frameRate: 40
+    });
+    this.anims.create({
+      key: 'score100', 
+      frames: this.anims.generateFrameNumbers('score100', {start: 0, end: 20, first: 0}),
+      frameRate: 40
     });
 
     this.anims.create({
@@ -151,8 +163,17 @@ class Play extends Phaser.Scene {
     ship.alpha = 0;
     // create explosion sprite at ship's position
     let boom = this.add.sprite(ship.x, ship.y, 'explosionNew').setOrigin(0, 0);
-    boom.anims.play('explodeNew'); 
-    ship.reset();          
+    boom.anims.play('explodeNew');
+
+    let scoreType;
+    if(ship.type == "red") scoreType = 'score100';
+    if(ship.type == "orange") scoreType = 'score50';
+    if(ship.type == "green") scoreType = 'score20';
+    let scoreEffect = this.add.sprite(ship.x+10, ship.y-10, scoreType).setOrigin(0, 0);
+    scoreEffect.anims.play(scoreType);
+
+    ship.reset();  
+    scoreEffect.on('animationcomplete', () => { scoreEffect.destroy(); })        
     boom.on('animationcomplete', () => {    
       ship.alpha = 1;                       
       boom.destroy();
